@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Fitness | A Tua Academia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Barra de Navegação Superior -->
+    <header>
+        <div class="logo">Nexus Fitness</div>
+        <ul class="nav-links">
+            <li><a href="#calendario">Horários</a></li>
+            <li><a href="#planos">Planos</a></li>
+        </ul>
+        
+        <!-- Esta área será controlada dinamicamente pelo JavaScript -->
+        <div id="auth-area" class="auth-buttons">
+            <!-- Botões padrão (aparecem se deslogado) -->
+            <a href="login.html?role=funcionario" class="btn-portal btn-func">Portal Funcionário</a>
+            <a href="login.html?role=aluno" class="btn-portal btn-aluno">Área do Aluno</a>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Secção do Calendário Semanal/Diário -->
+        <section id="calendario" class="calendar-section">
+            <h2>Calendário de Aulas Diárias</h2>
+            <div class="days-nav">
+                <button class="day-btn active" onclick="changeDay('segunda', this)">Segunda</button>
+                <button class="day-btn" onclick="changeDay('terca', this)">Terça</button>
+                <button class="day-btn" onclick="changeDay('quarta', this)">Quarta</button>
+                <button class="day-btn" onclick="changeDay('quinta', this)">Quinta</button>
+                <button class="day-btn" onclick="changeDay('sexta', this)">Sexta</button>
+                <button class="day-btn" onclick="changeDay('sabado', this)">Sábado</button>
+            </div>
+
+            <div id="schedule-container" class="schedule-list">
+                <!-- Os horários serão inseridos aqui dinamicamente via JS -->
+            </div>
+        </section>
+
+        <!-- Secção de Planos de Subscrição -->
+        <section id="planos">
+            <h2>Escolha o Seu Plano</h2>
+            <div class="plans-grid">
+                
+                <!-- Plano Bronze -->
+                <div class="plan-card">
+                    <div class="plan-name">Plano Bronze</div>
+                    <div class="plan-price">29.90€<span>/mês</span></div>
+                    <ul class="plan-features">
+                        <li>Acesso à sala de musculação</li>
+                        <li>Horário livre (Off-peak)</li>
+                        <li>Balneários incluídos</li>
+                    </ul>
+                    <a href="login.html?role=aluno" class="btn-subscribe-link">
+                        <button class="btn-subscribe">Aderir Agora</button>
+                    </a>
+                </div>
+
+                <!-- Plano Ouro (Destaque) -->
+                <div class="plan-card featured">
+                    <div class="plan-badge">Mais Popular</div>
+                    <div class="plan-name">Plano Ouro</div>
+                    <div class="plan-price">39.90€<span>/mês</span></div>
+                    <ul class="plan-features">
+                        <li>Acesso total 24/7</li>
+                        <li>Todas as aulas de grupo incluídas</li>
+                        <li>Avaliação física mensal</li>
+                        <li>Acesso a App de treino personalizada</li>
+                    </ul>
+                    <a href="login.html?role=aluno" class="btn-subscribe-link">
+                        <button class="btn-subscribe">Aderir Agora</button>
+                    </a>
+                </div>
+
+                <!-- Plano Diamante -->
+                <div class="plan-card">
+                    <div class="plan-name">Plano Diamante</div>
+                    <div class="plan-price">59.90€<span>/mês</span></div>
+                    <ul class="plan-features">
+                        <li>Todos os benefícios do Ouro</li>
+                        <li>2 Sessões de Personal Trainer/mês</li>
+                        <li>Acesso à zona de SPA e Sauna</li>
+                        <li>Livre trânsito noutros clubes da rede</li>
+                    </ul>
+                    <a href="login.html?role=aluno" class="btn-subscribe-link">
+                        <button class="btn-subscribe">Aderir Agora</button>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

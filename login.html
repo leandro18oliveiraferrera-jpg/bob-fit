@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Fitness | Login e Cadastro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Botão para voltar à página principal -->
+    <a href="index.html" class="btn-back">← Voltar ao Início</a>
+
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">Nexus Fitness</div>
+            <p>Escolha o seu perfil para aceder ou registar-se</p>
+        </div>
+
+        <!-- Seleção de Perfil (Aluno ou Funcionário) -->
+        <div class="role-selector">
+            <button type="button" class="role-btn active" id="btn-aluno" onclick="selectRole('aluno')">
+                <span class="icon">🎓</span> Aluno
+            </button>
+            <button type="button" class="role-btn" id="btn-funcionario" onclick="selectRole('funcionario')">
+                <span class="icon">💼</span> Funcionário
+            </button>
+        </div>
+
+        <!-- Formulário com campos totalmente fixos para evitar erros de renderização -->
+        <form id="login-form" onsubmit="handleAuth(event)">
+            
+            <!-- Campo de E-mail -->
+            <div class="input-group">
+                <label id="email-label" for="user-email">E-mail</label>
+                <input type="email" id="user-email" required placeholder="exemplo@email.com">
+            </div>
+
+            <!-- Campo de CPF Garantido e Fixo -->
+            <div class="input-group">
+                <label for="user-cpf">CPF</label>
+                <input type="text" id="user-cpf" required maxlength="14" placeholder="000.000.000-00" oninput="applyCpfMask(this)">
+            </div>
+
+            <!-- Campo de Palavra-passe -->
+            <div class="input-group">
+                <label for="password">Palavra-passe</label>
+                <input type="password" id="password" required placeholder="••••••••">
+            </div>
+
+            <!-- Botão de submissão -->
+            <button type="submit" class="btn-submit" id="btn-submit-text">Cadastrar e Entrar como Aluno</button>
+        </form>
+
+        <!-- Mensagem de feedback de sucesso -->
+        <div id="feedback-message" class="feedback hidden"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
