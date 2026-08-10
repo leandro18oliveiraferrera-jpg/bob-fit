@@ -1,5 +1,5 @@
 /* ==========================================
-   ESTILOS GLOBAIS E FUNDO ANIMADO
+   ESTILOS GLOBAIS E FUNDO PADRÃO DA PRINCIPAL (HOME)
    ========================================== */
    * {
     margin: 0;
@@ -9,19 +9,37 @@
 }
 
 body {
-    background: linear-gradient(135deg, #000000, #025019, #0a9205);
-    background-size: 400% 400%;
-    animation: gradientBg 15s ease infinite;
+    background-color: #050505;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(0, 255, 43, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(0, 188, 30, 0.03) 0px, transparent 50%);
     color: #f3f4f6;
     min-height: 100vh;
     overflow-x: hidden;
-    position: relative;
 }
 
-@keyframes gradientBg {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* ==========================================
+   FUNDO EXCLUSIVO DA TELA DE LOGIN (INDEX)
+   ========================================== */
+body.login-page {
+    background-color: #050505;
+    background-image: 
+        linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.85)), 
+        url('https://unsplash.com');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.login-container, .calendar-section, .plan-card, .intro-section {
+    background: rgba(13, 13, 13, 0.75) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+.hidden {
+    display: none !important;
 }
 
 /* ==========================================
@@ -32,74 +50,75 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 20px 8%;
-    background: rgba(17, 24, 39, 0.7);
-    backdrop-filter: blur(10px);
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(0, 255, 43, 0.15);
 }
 
 .logo {
     font-size: 24px;
-    font-weight: bold;
-    color: #147500;
+    font-weight: 900;
+    color: #00ff2b;
     text-transform: uppercase;
     letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 255, 43, 0.3);
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 25px;
 }
 
 .nav-links a {
-    color: #ffffff;
+    color: #cccccc;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s;
 }
 
 .nav-links a:hover {
-    color: #147500;
+    color: #00ff2b;
 }
 
-/* Área de Acesso (Login no Header) */
 .auth-buttons {
     display: flex;
-    gap: 10px;
+    gap: 12px;
 }
 
 .btn-portal {
     display: inline-block;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
     text-decoration: none;
-    transition: transform 0.2s, background-color 0.3s;
+    transition: all 0.3s ease;
 }
 
 .btn-aluno {
-    background-color: #147500;
-    color: white;
+    background-color: #00bc1e;
+    color: #000;
 }
 
 .btn-func {
     background-color: transparent;
-    color: #147500;
-    border: 1px solid #147500;
+    color: #00ff2b;
+    border: 1px solid #00bc1e;
 }
 
 .btn-portal:hover {
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 255, 43, 0.2);
     filter: brightness(1.2);
 }
 
 /* ==========================================
-   ELEMENTOS DO CONTEÚDO PRINCIPAL
+   CONTEÚDO PRINCIPAL
    ========================================== */
 .container {
     max-width: 1200px;
@@ -110,22 +129,21 @@ header {
 h2 {
     text-align: center;
     margin-bottom: 30px;
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 /* ==========================================
-   SECCÃO DO CALENDÁRIO INTERATIVO
+   CALENDÁRIO INTERATIVO E PAINEL ADM
    ========================================== */
 .calendar-section {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(16px);
-    border-radius: 15px;
+    border-radius: 12px;
     padding: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     margin-bottom: 60px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .days-nav {
@@ -134,24 +152,27 @@ h2 {
     margin-bottom: 25px;
     overflow-x: auto;
     gap: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
 }
 
 .day-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: white;
+    background: #161616;
+    border: 1px solid rgba(255,255,255,0.05);
+    color: #9ca3af;
     padding: 12px 20px;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
     min-width: 100px;
     text-align: center;
     transition: all 0.3s;
+    font-weight: 600;
 }
 
 .day-btn.active, .day-btn:hover {
-    background: #147500;
-    box-shadow: 0 4px 15px rgba(11, 179, 6, 0.4);
+    background: #00bc1e;
+    color: #000;
+    border-color: #00bc1e;
+    box-shadow: 0 0 15px rgba(0, 255, 43, 0.3);
 }
 
 .schedule-list {
@@ -164,31 +185,78 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(17, 24, 39, 0.5);
+    background: #121212;
     padding: 20px;
-    border-radius: 10px;
-    border-left: 5px solid #6366f1;
-    transition: transform 0.2s;
-}
-
-.schedule-item:hover {
-    transform: scale(1.01);
+    border-radius: 8px;
+    border-left: 5px solid #00bc1e;
+    border-top: 1px solid rgba(255,255,255,0.02);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
 
 .time {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
-    color: #a5b4fc;
+    color: #00ff2b;
 }
 
 .activity {
     font-size: 1.1rem;
     font-weight: 500;
+    color: #fff;
 }
 
 .coach {
     font-size: 0.9rem;
-    color: #9ca3af;
+    color: #888;
+}
+
+.btn-delete {
+    background: transparent;
+    border: 1px solid #ef4444;
+    color: #ef4444;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.btn-delete:hover {
+    background: #ef4444;
+    color: white;
+}
+
+/* Formulário do Funcionário */
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form-row .input-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+select {
+    padding: 14px;
+    background: #161616;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+}
+
+select:focus {
+    outline: none;
+    border-color: #00ff2b;
 }
 
 /* ==========================================
@@ -201,32 +269,31 @@ h2 {
 }
 
 .plan-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(16px);
-    border-radius: 15px;
+    border-radius: 12px;
     padding: 40px 30px;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     position: relative;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: all 0.3s ease;
 }
 
 .plan-card.featured {
-    border: 2px solid #cfcfd8;
-    transform: scale(1.05);
+    border: 2px solid #00bc1e;
+    box-shadow: 0 0 20px rgba(0, 255, 43, 0.1);
 }
 
 .plan-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+    transform: translateY(-8px);
+    border-color: #00ff2b;
+    box-shadow: 0 10px 25px rgba(0, 255, 43, 0.15);
 }
 
 .plan-badge {
     position: absolute;
     top: 15px;
     right: 15px;
-    background: #4cbe00;
-    color: white;
+    background: #00bc1e;
+    color: #000;
     padding: 4px 12px;
     border-radius: 20px;
     font-size: 0.8rem;
@@ -234,12 +301,13 @@ h2 {
 }
 
 .plan-name {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: bold;
     margin-bottom: 15px;
 }
 
 .plan-price {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
     font-weight: bold;
     color: #ffffff;
     margin-bottom: 25px;
@@ -247,7 +315,7 @@ h2 {
 
 .plan-price span {
     font-size: 1rem;
-    color: #9ca3af;
+    color: #777;
 }
 
 .plan-features {
@@ -259,75 +327,47 @@ h2 {
 
 .plan-features li {
     margin-bottom: 12px;
-    color: #d1d5db;
+    color: #bbb;
 }
 
 .plan-features li::before {
     content: "✓ ";
-    color: #10b981;
+    color: #00ff2b;
     font-weight: bold;
     margin-right: 8px;
-}
-
-.btn-subscribe-link {
-    text-decoration: none;
-    display: block;
-    width: 100%;
 }
 
 .btn-subscribe {
     width: 100%;
     padding: 12px;
-    background: #147500;
+    background: #00bc1e;
     border: none;
-    border-radius: 8px;
-    color: white;
+    border-radius: 6px;
+    color: #000;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s;
 }
 
 .btn-subscribe:hover {
-    background: #003503;
+    background: #00ff2b;
 }
 
 /* ==========================================
-   INTERFACES DA ECRÃ DE LOGIN
+   INTERFACES DA TELA DE LOGIN
    ========================================== */
-.btn-back {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    color: #a5b4fc;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s;
-    z-index: 100;
-}
-
-.btn-back:hover {
-    color: #6366f1;
-}
-
 .login-container {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 16px;
     width: 90%;
     max-width: 450px;
-    margin: 80px auto; /* Centraliza a caixa quando usada na mesma folha */
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-}
-
-.login-header {
-    text-align: center;
-    margin-bottom: 30px;
+    margin: 80px auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
 }
 
 .login-header p {
-    color: #9ca3af;
+    color: #777;
     font-size: 0.9rem;
 }
 
@@ -340,29 +380,29 @@ h2 {
 .role-btn {
     flex: 1;
     padding: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    color: #9ca3af;
+    background: #161616;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    color: #888;
     cursor: pointer;
     font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
 }
 
 .role-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: #222;
     color: #fff;
 }
 
 .role-btn.active {
-    background: #6366f1;
-    color: white;
-    border-color: #6366f1;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    background: #00bc1e;
+    color: #000;
+    border-color: #00bc1e;
+    box-shadow: 0 4px 12px rgba(0, 255, 43, 0.2);
 }
 
 .input-group {
@@ -374,14 +414,13 @@ h2 {
 
 .input-group label {
     font-size: 0.85rem;
-    color: #cbd5e1;
+    color: #aaa;
     font-weight: 500;
-    text-align: left;
 }
 
 .input-group input {
     padding: 14px;
-    background: rgba(17, 24, 39, 0.6);
+    background: #161616;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     color: white;
@@ -391,25 +430,28 @@ h2 {
 
 .input-group input:focus {
     outline: none;
-    border-color: #6366f1;
+    border-color: #00ff2b;
+    box-shadow: 0 0 8px rgba(0, 255, 43, 0.2);
 }
 
 .btn-submit {
     width: 100%;
     padding: 14px;
-    background: #147500;
-    color: white;
+    background: #00bc1e;
+    color: #000;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s, transform 0.1s;
+    transition: all 0.2s;
     margin-top: 10px;
 }
 
-.btn-submit:hover { background: #075800; }
-.btn-submit:active { transform: scale(0.98); }
+.btn-submit:hover { 
+    background: #00ff2b;
+    box-shadow: 0 0 15px rgba(0, 255, 43, 0.4);
+}
 
 .feedback {
     margin-top: 20px;
@@ -418,19 +460,46 @@ h2 {
     text-align: center;
     font-weight: 500;
     font-size: 0.9rem;
-    background: rgba(16, 185, 129, 0.2);
-    border: 1px solid #10b981;
-    color: #34d399;
+    background: rgba(0, 255, 43, 0.1);
+    border: 1px solid #00bc1e;
+    color: #fff;
 }
 
-.feedback.hidden { display: none; }
-
 /* ==========================================
-   RESPONSIVIDADE
+   APRESENTAÇÃO E GALERIA IMAGENS
    ========================================== */
-@media (max-width: 768px) {
-    header { flex-direction: column; gap: 15px; text-align: center; }
-    .nav-links { margin-bottom: 15px; }
-    .plan-card.featured { transform: none; }
-    .plan-card.featured:hover { transform: translateY(-10px); }
+.intro-section {
+    border-radius: 12px;
+    padding: 40px 30px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.intro-text h1 {
+    font-size: 2.2rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.intro-text p {
+    color: #bbb;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 850px;
+    margin: 0 auto 35px auto;
+}
+
+.gym-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.gallery-card {
+    background: #121212;
+    border-radius: 8px;
 }
