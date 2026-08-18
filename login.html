@@ -3,161 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Fitness | A Tua Academia</title>
+    <title>BoB Fit | Login e Cadastro</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="login-page">
 
-    <!-- Barra de Navegação Superior -->
-    <header>
-        <div class="logo">Nexus Fitness</div>
-        <ul class="nav-links">
-            <li><a href="#apresentacao">A Academia</a></li>
-            <li><a href="#calendario">Horários</a></li>
-            <li><a href="#planos">Planos</a></li>
-        </ul>
-        
-        <div id="auth-area" class="auth-buttons">
-            <a href="index.html?role=funcionario" class="btn-portal btn-func">Portal Funcionário</a>
-            <a href="index.html?role=aluno" class="btn-portal btn-aluno">Área do Aluno</a>
+    <div class="login-container" style="margin: 120px auto;">
+        <div class="login-header">
+            <div class="logo">BoB Fit</div>
+            <p>Escolha o seu perfil para aceder ou registar-se</p>
         </div>
-    </header>
 
-    <div class="container">
+        <!-- Seleção de Perfil (Aluno ou Funcionário) -->
+        <div class="role-selector">
+            <button type="button" class="role-btn active" id="btn-aluno" onclick="selectRole('aluno')">
+                <span class="icon">🎓</span> Aluno
+            </button>
+            <button type="button" class="role-btn" id="btn-funcionario" onclick="selectRole('funcionario')">
+                <span class="icon">💼</span> Funcionário
+            </button>
+        </div>
 
-        <!-- Apresentação da Academia com 4 Imagens Estruturais -->
-        <section id="apresentacao" class="intro-section">
-            <div class="intro-text">
-                <h1>Benvindo à Nexus Fitness</h1>
-                <p>Construída para quem busca alta performance e resultados reais. A nossa infraestrutura conta com equipamentos de última geração, zonas de treino exclusivas e um ambiente totalmente planeado para elevar o teu potencial ao próximo nível. Conhece o nosso espaço pensado ao detalhe para ti.</p>
-            </div>
+        <!-- Formulário de Autenticação -->
+        <form id="login-form" onsubmit="handleAuth(event)">
             
-            <div class="gym-gallery-grid">
-                <div class="gallery-card">
-                    <img src="https://amazonaws.com" alt="Fachada Principal da Academia">
-                    <div class="card-caption">Fachada Principal</div>
-                </div>
-                <div class="gallery-card">
-                    <img src="https://sunspaces.co.uk" alt="Zona Exterior dos Fundos">
-                    <div class="card-caption">Zona Exterior (Fundos)</div>
-                </div>
-                <div class="gallery-card">
-                    <img src="https://iron-house.co" alt="Piso Inferior - Sala de Musculação">
-                    <div class="card-caption">Piso Inferior (Musculação)</div>
-                </div>
-                <div class="gallery-card">
-                    <img src="https://fbcdn.net" alt="Piso Superior - Cardio e Aulas de Grupo">
-                    <div class="card-caption">Piso Superior (Cardio & Grupos)</div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Painel de Gerenciamento Exclusivo do Funcionário (Invisível por padrão) -->
-        <section id="admin-panel" class="calendar-section hidden">
-            <h2>⚙️ Gerenciar Grade de Aulas (Painel do Funcionário)</h2>
-            <form id="add-schedule-form" onsubmit="handleAddSchedule(event)" class="admin-form">
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="form-day">Dia da Semana</label>
-                        <select id="form-day" required>
-                            <option value="segunda">Segunda</option>
-                            <option value="terca">Terça</option>
-                            <option value="quarta">Quarta</option>
-                            <option value="quinta">Quinta</option>
-                            <option value="sexta">Sexta</option>
-                            <option value="sabado">Sábado</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label for="form-time">Horário</label>
-                        <input type="text" id="form-time" required placeholder="Ex: 14:00 - 15:00">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="form-activity">Aula / Atividade</label>
-                        <input type="text" id="form-activity" required placeholder="Ex: Musculação Avançada">
-                    </div>
-                    <div class="input-group">
-                        <label for="form-coach">Professor / Instrutor</label>
-                        <input type="text" id="form-coach" required placeholder="Ex: Prof. Roberto">
-                    </div>
-                </div>
-                <button type="submit" class="btn-submit">Adicionar Aula ao Calendário</button>
-            </form>
-        </section>
-        
-        <!-- Secção do Calendário Semanal/Diário -->
-        <section id="calendario" class="calendar-section">
-            <h2>Calendário de Aulas Diárias</h2>
-            <div class="days-nav">
-                <button class="day-btn active" onclick="changeDay('segunda', this)">Segunda</button>
-                <button class="day-btn" onclick="changeDay('terca', this)">Terça</button>
-                <button class="day-btn" onclick="changeDay('quarta', this)">Quarta</button>
-                <button class="day-btn" onclick="changeDay('quinta', this)">Quinta</button>
-                <button class="day-btn" onclick="changeDay('sexta', this)">Sexta</button>
-                <button class="day-btn" onclick="changeDay('sabado', this)">Sábado</button>
+            <!-- Campo de E-mail -->
+            <div class="input-group">
+                <label id="email-label" for="user-email">E-mail</label>
+                <input type="email" id="user-email" required placeholder="exemplo@email.com">
             </div>
 
-            <div id="schedule-container" class="schedule-list">
-                <!-- Os horários serão inseridos aqui dinamicamente via JS -->
+            <!-- Campo de CPF -->
+            <div class="input-group">
+                <label for="user-cpf">CPF</label>
+                <input type="text" id="user-cpf" required maxlength="14" placeholder="000.000.000-00" oninput="applyCpfMask(this)">
             </div>
-        </section>
 
-        <!-- Secção de Planos de Subscrição -->
-        <section id="planos">
-            <h2>Escolha o Seu Plano</h2>
-            <div class="plans-grid">
-                
-                <!-- Plano Bronze -->
-                <div class="plan-card">
-                    <div class="plan-name">Plano Bronze</div>
-                    <div class="plan-price">29.90€<span>/mês</span></div>
-                    <ul class="plan-features">
-                        <li>Acesso à sala de musculação</li>
-                        <li>Horário livre (Off-peak)</li>
-                        <li>Balneários incluídos</li>
-                    </ul>
-                    <a href="index.html?role=aluno" class="btn-subscribe-link">
-                        <button class="btn-subscribe">Aderir Agora</button>
-                    </a>
-                </div>
-
-                <!-- Plano Ouro (Destaque) -->
-                <div class="plan-card featured">
-                    <div class="plan-badge">Mais Popular</div>
-                    <div class="plan-name">Plano Ouro</div>
-                    <div class="plan-price">39.90€<span>/mês</span></div>
-                    <ul class="plan-features">
-                        <li>Acesso total 24/7</li>
-                        <li>Todas as aulas de grupo incluídas</li>
-                        <li>Avaliação física mensal</li>
-                        <li>Acesso a App de treino personalizada</li>
-                    </ul>
-                    <a href="index.html?role=aluno" class="btn-subscribe-link">
-                        <button class="btn-subscribe">Aderir Agora</button>
-                    </a>
-                </div>
-
-                <!-- Plano Diamante -->
-                <div class="plan-card">
-                    <div class="plan-name">Plano Diamante</div>
-                    <div class="plan-price">59.90€<span>/mês</span></div>
-                    <ul class="plan-features">
-                        <li>Todos os benefícios do Ouro</li>
-                        <li>2 Sessões de Personal Trainer/mês</li>
-                        <li>Acesso à zona de SPA e Sauna</li>
-                        <li>Livre trânsito noutros clubes da rede</li>
-                    </ul>
-                    <a href="index.html?role=aluno" class="btn-subscribe-link">
-                        <button class="btn-subscribe">Aderir Agora</button>
-                    </a>
-                </div>
-
+            <!-- Campo: Seleção de Género -->
+            <div class="input-group">
+                <label for="user-gender">Género</label>
+                <select id="user-gender" required style="width: 100%;">
+                    <option value="" disabled selected hidden>Selecione uma opção</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="feminino">Feminino</option>
+                    <option value="outros">Outros</option>
+                </select>
             </div>
-        </section>
+
+            <!-- Campo de Palavra-passe -->
+            <div class="input-group">
+                <label for="password">Palavra-passe</label>
+                <input type="password" id="password" required placeholder="••••••••">
+            </div>
+
+            <!-- Botão de submissão -->
+            <button type="submit" class="btn-submit" id="btn-submit-text">Cadastrar e Entrar como Aluno</button>
+        </form>
+
+        <!-- Mensagem de feedback de sucesso -->
+        <div id="feedback-message" class="feedback hidden"></div>
     </div>
 
     <script src="script.js"></script>
 </body>
+</html>
+
 </html>
