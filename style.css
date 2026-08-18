@@ -19,7 +19,7 @@ body {
 }
 
 /* ==========================================
-   FUNDO EXCLUSIVO DA TELA DE LOGIN (INDEX)
+   FUNDO EXCLUSIVO DA TELA DE LOGIN
    ========================================== */
 body.login-page {
     background-color: #050505;
@@ -136,6 +136,164 @@ h2 {
 }
 
 /* ==========================================
+   SECÇÃO DE INTRODUÇÃO E GALERIA
+   ========================================== */
+.intro-section {
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 40px;
+}
+
+.intro-text h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.intro-text p {
+    color: #aaa;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.gym-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.gallery-card {
+    background: #111;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.gallery-card:hover {
+    transform: scale(1.03);
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-caption {
+    padding: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #bbb;
+    background: #161616;
+}
+
+/* ==========================================
+   SECÇÃO DE LOCALIZAÇÃO E HORÁRIOS (HOME)
+   ========================================== */
+.info-section-gym {
+    margin-bottom: 50px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.info-box {
+    background: rgba(13, 13, 13, 0.75) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.info-box.border-glow:hover {
+    border-color: #00ff2b;
+    box-shadow: 0 5px 20px rgba(0, 255, 43, 0.15);
+    transform: translateY(-2px);
+}
+
+.info-box h3 {
+    font-size: 1.3rem;
+    color: #00ff2b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(0, 255, 43, 0.2);
+}
+
+.address-text {
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.map-container {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+}
+
+.hours-sub {
+    color: #bbb;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+.hours-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-grow: 1;
+}
+
+.hours-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.day-name-label {
+    color: #fff;
+    font-weight: 500;
+}
+
+.hours-value-glow {
+    color: #00ff2b;
+    font-weight: bold;
+    background: rgba(0, 255, 43, 0.05);
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.hours-alert-box {
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 3px solid #00bc1e;
+}
+
+.hours-alert-box span {
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 1.4;
+}
+
+/* ==========================================
    CALENDÁRIO INTERATIVO E PAINEL ADM
    ========================================== */
 .calendar-section {
@@ -226,8 +384,8 @@ h2 {
     color: white;
 }
 
-/* Formulário do Funcionário */
-.admin-form {
+/* Formulário do Funcionário e Geral */
+.admin-form, #login-form {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -240,152 +398,88 @@ h2 {
     flex-wrap: wrap;
 }
 
-.form-row .input-group {
+.form-row .input-group, .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     flex: 1;
     min-width: 200px;
 }
 
-select {
+.input-group label {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+input, select {
     padding: 14px;
     background: #161616;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     color: white;
     font-size: 1rem;
+    width: 100%;
 }
 
-select:focus {
+input:focus, select:focus {
     outline: none;
     border-color: #00ff2b;
 }
 
-/* ==========================================
-   SECÇÃO DE PLANOS
-   ========================================== */
-.plans-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.plan-card {
-    border-radius: 12px;
-    padding: 40px 30px;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    position: relative;
+.btn-submit {
+    padding: 14px;
+    background: #00bc1e;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
     transition: all 0.3s ease;
 }
 
-.plan-card.featured {
-    border: 2px solid #00bc1e;
-    box-shadow: 0 0 20px rgba(0, 255, 43, 0.1);
-}
-
-.plan-card:hover {
-    transform: translateY(-8px);
-    border-color: #00ff2b;
-    box-shadow: 0 10px 25px rgba(0, 255, 43, 0.15);
-}
-
-.plan-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: #00bc1e;
-    color: #000;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-
-.plan-name {
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.plan-price {
-    font-size: 2.3rem;
-    font-weight: bold;
-    color: #ffffff;
-    margin-bottom: 25px;
-}
-
-.plan-price span {
-    font-size: 1rem;
-    color: #777;
-}
-
-.plan-features {
-    list-style: none;
-    margin-bottom: 35px;
-    text-align: left;
-    display: inline-block;
-}
-
-.plan-features li {
-    margin-bottom: 12px;
-    color: #bbb;
-}
-
-.plan-features li::before {
-    content: "✓ ";
-    color: #00ff2b;
-    font-weight: bold;
-    margin-right: 8px;
-}
-
-.btn-subscribe {
-    width: 100%;
-    padding: 12px;
-    background: #00bc1e;
-    border: none;
-    border-radius: 6px;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.btn-subscribe:hover {
+.btn-submit:hover {
     background: #00ff2b;
+    box-shadow: 0 0 15px rgba(0, 255, 43, 0.4);
 }
 
 /* ==========================================
-   INTERFACES DA TELA DE LOGIN
+   TELA DE LOGIN ESPECÍFICOS
    ========================================== */
 .login-container {
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 40px;
-    border-radius: 16px;
-    width: 90%;
     max-width: 450px;
-    margin: 80px auto;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+    border-radius: 12px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .login-header p {
-    color: #777;
+    color: #aaa;
     font-size: 0.9rem;
+    margin-top: 10px;
 }
 
 .role-selector {
     display: flex;
-    gap: 15px;
-    margin-bottom: 30px;
+    gap: 10px;
+    margin-bottom: 25px;
 }
 
 .role-btn {
     flex: 1;
     padding: 12px;
     background: #161616;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.05);
     color: #888;
+    border-radius: 8px;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -393,113 +487,118 @@ select:focus {
     transition: all 0.3s;
 }
 
-.role-btn:hover {
-    background: #222;
-    color: #fff;
-}
-
 .role-btn.active {
-    background: #00bc1e;
-    color: #000;
+    background: rgba(0, 188, 30, 0.15);
+    color: #00ff2b;
     border-color: #00bc1e;
-    box-shadow: 0 4px 12px rgba(0, 255, 43, 0.2);
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 20px;
-}
-
-.input-group label {
-    font-size: 0.85rem;
-    color: #aaa;
-    font-weight: 500;
-}
-
-.input-group input {
-    padding: 14px;
-    background: #161616;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: white;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-.input-group input:focus {
-    outline: none;
-    border-color: #00ff2b;
-    box-shadow: 0 0 8px rgba(0, 255, 43, 0.2);
-}
-
-.btn-submit {
-    width: 100%;
-    padding: 14px;
-    background: #00bc1e;
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-top: 10px;
-}
-
-.btn-submit:hover { 
-    background: #00ff2b;
-    box-shadow: 0 0 15px rgba(0, 255, 43, 0.4);
 }
 
 .feedback {
-    margin-top: 20px;
+    margin-top: 15px;
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 6px;
     text-align: center;
-    font-weight: 500;
-    font-size: 0.9rem;
-    background: rgba(0, 255, 43, 0.1);
-    border: 1px solid #00bc1e;
-    color: #fff;
+}
+.plans-section {
+    margin-bottom: 60px;
 }
 
+.plan-card h3 {
+    font-size: 1.4rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
 /* ==========================================
-   APRESENTAÇÃO E GALERIA IMAGENS
+   RODAPÉS ACUMULADOS (FOOTERS)
    ========================================== */
-.intro-section {
-    border-radius: 12px;
-    padding: 40px 30px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    margin-bottom: 50px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    text-align: center;
+   .footer-main {
+    background: #0a0a0a;
+    border-top: 1px solid rgba(0, 255, 43, 0.1);
+    padding: 40px 8%;
+    margin-top: 40px;
 }
 
-.intro-text h1 {
-    font-size: 2.2rem;
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-brand p {
+    color: #888;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.footer-grid h4 {
     color: #fff;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 15px;
 }
 
-.intro-text p {
-    color: #bbb;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    max-width: 850px;
-    margin: 0 auto 35px auto;
+.footer-links ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.gym-gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
+.footer-links a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
 }
 
-.gallery-card {
-    background: #121212;
-    border-radius: 8px;
+.footer-links a:hover {
+    color: #00ff2b;
+}
+
+.footer-contact p {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+/* Segundo Rodapé (Legal) */
+.footer-legal {
+    background: #050505;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 20px 8%;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    max-width: 100%;
+}
+
+.footer-legal p {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.legal-links a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.3s;
+}
+
+.legal-links a:hover {
+    color: #00ff2b;
+}
+
+/* Ajuste Responsivo para o Rodapé Legal */
+@media (max-width: 600px) {
+    .footer-legal {
+        flex-direction: column;
+        text-align: center;
+    }
 }
