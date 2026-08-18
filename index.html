@@ -3,56 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Fitness | Login e Cadastro</title>
+    <title>BoB Fit | A Tua Academia</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="login-page">
+<body>
 
-    <div class="login-container" style="margin: 120px auto;">
-        <div class="login-header">
-            <div class="logo">Nexus Fitness</div>
-            <p>Escolha o seu perfil para aceder ou registar-se</p>
+    <!-- Barra de Navegação Superior -->
+    <header>
+        <div class="logo">BoB Fit</div>
+        <ul class="nav-links">
+            <li><a href="#apresentacao">A Academia</a></li>
+            <li><a href="#calendario">Horários</a></li>
+            <li><a href="#planos">Planos</a></li>
+        </ul>
+        
+        <div id="auth-area" class="auth-buttons">
+            <a href="login.html" class="btn-portal btn-func">Portal Funcionário</a>
+            <a href="login.html" class="btn-portal btn-aluno">Área do Aluno</a>
         </div>
+    </header>
 
-        <!-- Seleção de Perfil (Aluno ou Funcionário) -->
-        <div class="role-selector">
-            <button type="button" class="role-btn active" id="btn-aluno" onclick="selectRole('aluno')">
-                <span class="icon">🎓</span> Aluno
-            </button>
-            <button type="button" class="role-btn" id="btn-funcionario" onclick="selectRole('funcionario')">
-                <span class="icon">💼</span> Funcionário
-            </button>
+    <div class="container">
+
+        <!-- Apresentação da Academia com 4 Imagens Estruturais -->
+        <section id="apresentacao" class="intro-section">
+            <div class="intro-text">
+                <h1>Bem vindo à BoB Fit</h1>
+                <p>Construída para quem busca alta performance e resultados reais. A nossa infraestrutura conta com equipamentos de última geração, zonas de treino exclusivas e um ambiente totalmente planeado para elevar o teu potencial ao próximo nível. Conhece o nosso espaço pensado ao detalhe para ti.</p>
+            </div>
+
+            <div class="gym-gallery-grid">
+                <div class="gallery-card">
+                    <img src="img/parte da frente 2.webp" alt="Fachada Principal da Academia">
+                    <div class="card-caption">Fachada Principal</div>
+                </div>
+                <div class="gallery-card">
+                    <img src="img/parte onde é feito atividades extras.webp" alt="Zona de Atividades extras">
+                    <div class="card-caption">Zona Exterior (Fundos)</div>
+                </div>
+                <div class="gallery-card">
+                    <img src="img/dentro parte de baixo.webp" alt="Piso Inferior - Sala de Musculação">
+                    <div class="card-caption">Piso Inferior (Musculação)</div>
+                </div>
+                <div class="gallery-card">
+                    <img src="img/parte de cima da parte de musculaçao.webp" alt="Piso Superior - Cardio e Aulas de Grupo">
+                    <div class="card-caption">Piso Superior (Cardio & Grupos)</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SECÇÃO: LOCALIZAÇÃO E HORÁRIO DE FUNCIONAMENTO -->
+        <section id="localizacao" class="info-section-gym">
+            <div class="info-grid">
+                
+                <!-- Bloco do Mapa e Endereço -->
+                <div class="info-box border-glow">
+                    <h3>📍 Onde Estamos</h3>
+                    <p class="address-text">R. Ângelo Luigi Busnardo, 70 - Jardim Maria Luiza I, Jaú - SP, 17203-270</p>
+                    <div class="map-container">
+                        <iframe 
+                             src="img/fremte-bob fit.webp" 
+                            width="100%" 
+                            height="220" 
+                            style="border:0; border-radius: 8px;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
+                <!-- Bloco do Horário de Funcionamento Geral -->
+                <div class="info-box border-glow">
+                    <h3>⏰ Horário de Funcionamento</h3>
+                    <p class="hours-sub">Portas abertas para o teu treino nos seguintes períodos gerais:</p>
+                    <ul class="hours-list">
+                        <li>
+                            <span class="day-name-label">Segunda a Sexta</span>
+                            <span class="hours-value-glow">06:00 - 22:00</span>
+                        </li>
+                        <li>
+                            <span class="day-name-label">Sábados</span>
+                            <span class="hours-value-glow">08:00 - 20:00</span>
+                        </li>
+                        <li>
+                            <span class="day-name-label">Domingos e Feriados</span>
+                            <span class="hours-value-glow">09:00 - 13:00</span>
+                        </li>
+                    </ul>
+                                    
+                    <!-- ESPAÇO DE AVISO DINÂMICO -->
+                    <div class="hours-alert-box">
+                        <span id="gym-announcement">🔔 Carregando avisos importantes...</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Painel de Gerenciamento Exclusivo do Funcionário (Invisível por padrão) -->
+        <section id="admin-panel" class="calendar-section hidden">
+            <h2>⚙️ Gerenciar Grade de Aulas (Painel do Funcionário)</h2>
+            <form id="add-schedule-form" onsubmit="handleAddSchedule(event)" class="admin-form">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="form-day">Dia da Semana</label>
+                        <select id="form-day" required>
+                            <option value="segunda">Segunda</option>
+                            <option value="terca">Terça</option>
+                            <option value="quarta">Quarta</option>
+                            <option value="quinta">Quinta</option>
+                            <option value="sexta">Sexta</option>
+                            <option value="sabado">Sábado</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="form-time">Horário</label>
+                        <input type="text" id="form-time" required placeholder="Ex: 14:00 - 15:00">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="form-activity">Aula / Atividade</label>
+                        <input type="text" id="form-activity" required placeholder="Ex: Musculação Avançada">
+                    </div>
+                    <div class="input-group">
+                        <label for="form-coach">Professor / Instrutor</label>
+                        <input type="text" id="form-coach" required placeholder="Ex: Prof. Roberto">
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">Adicionar Aula ao Calendário</button>
+            </form>
+        </section>
+        
+        <!-- Secção do Calendário Semanal/Diário -->
+        <section id="calendario" class="calendar-section">
+            <h2>Calendário de Aulas Diárias</h2>
+            <div class="days-nav">
+                <button class="day-btn active" onclick="changeDay('segunda', this)">Segunda</button>
+                <button class="day-btn" onclick="changeDay('terca', this)">Terça</button>
+                <button class="day-btn" onclick="changeDay('quarta', this)">Quarta</button>
+                <button class="day-btn" onclick="changeDay('quinta', this)">Quinta</button>
+                <button class="day-btn" onclick="changeDay('sexta', this)">Sexta</button>
+                <button class="day-btn" onclick="changeDay('sabado', this)">Sábado</button>
+            </div>
+
+            <div id="schedule-container" class="schedule-list">
+                <!-- Os horários serão inseridos aqui dinamicamente via JS -->
+            </div>
+        </section>
+
+                       <!-- Secção de Planos de Subscrição -->
+        <section id="planos" class="plans-section">
+            <h2>Nossos Planos</h2>
+            <div class="plans-grid">
+                
+                <!-- Plano Fitness -->
+                <div class="plan-card">
+                    <h3>Plano Fitness</h3>
+                    <div style="font-size: 2rem; font-weight: bold; color: #00ff2b; margin: 15px 0;">29,90€<span style="font-size: 1rem; color: #aaa;">/mês</span></div>
+                    <ul style="list-style: none; padding: 0; margin: 20px 0; text-align: left; color: #ccc; display: flex; flex-direction: column; gap: 10px;">
+                        <li>✅ Acesso à sala de musculação</li>
+                        <li>✅ Balneários e cacifos</li>
+                        <li>❌ Aulas de grupo incluídas</li>
+                        <li>❌ Avaliação física inicial</li>
+                    </ul>
+                    <button class="btn-submit" style="width: 100%;">Aderir Já</button>
+                </div>
+
+                <!-- Plano Nexus (Destaque) -->
+                <div class="plan-card featured">
+                    <span class="plan-badge">Mais Popular</span>
+                    <h3>Plano Nexus</h3>
+                    <div style="font-size: 2rem; font-weight: bold; color: #00ff2b; margin: 15px 0;">39,90€<span style="font-size: 1rem; color: #aaa;">/mês</span></div>
+                    <ul style="list-style: none; padding: 0; margin: 20px 0; text-align: left; color: #ccc; display: flex; flex-direction: column; gap: 10px;">
+                        <li>✅ Acesso livre a todas as áreas</li>
+                        <li>✅ Todas as aulas de grupo</li>
+                        <li>✅ Avaliação física mensal</li>
+                        <li>✅ Acesso à Zona Exterior</li>
+                    </ul>
+                    <button class="btn-submit" style="width: 100%;">Aderir Já</button>
+                </div>
+
+                <!-- Plano VIP -->
+                <div class="plan-card">
+                    <h3>Plano VIP</h3>
+                    <div style="font-size: 2rem; font-weight: bold; color: #00ff2b; margin: 15px 0;">59,90€<span style="font-size: 1rem; color: #aaa;">/mês</span></div>
+                    <ul style="list-style: none; padding: 0; margin: 20px 0; text-align: left; color: #ccc; display: flex; flex-direction: column; gap: 10px;">
+                        <li>✅ Todos os benefícios Nexus</li>
+                        <li>✅ Personal Trainer (2x por semana)</li>
+                        <li>✅ Plano de nutrição exclusivo</li>
+                        <li>✅ Livre acesso para 1 convidado</li>
+                    </ul>
+                    <button class="btn-submit" style="width: 100%;">Aderir Já</button>
+                </div>
+
+            </div>
+        </section>
+
+    </div> <!-- Fim da div .container -->
+
+    <!-- ==========================================
+       RODAPÉ 1: INFORMAÇÕES INSTITUCIONAIS E REDES
+       ========================================== */ -->
+    <footer class="footer-main">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo">BoB fit</div>
+                <p>Eleva o teu potencial ao próximo nível com a melhor infraestrutura de treino.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Links Úteis</h4>
+                <ul>
+                    <li><a href="#apresentacao">A Academia</a></li>
+                    <li><a href="#calendario">Horários</a></li>
+                    <li><a href="#planos">Nossos Planos</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contacto</h4>
+                <p>📞 +01434166830</p>
+                <p>✉️ suporte@BoB FiT.com</p>
+            </div>
         </div>
+    </footer>
 
-        <!-- Formulário de Autenticação -->
-        <form id="login-form" onsubmit="handleAuth(event)">
-            
-            <!-- Campo de E-mail -->
-            <div class="input-group">
-                <label id="email-label" for="user-email">E-mail</label>
-                <input type="email" id="user-email" required placeholder="exemplo@email.com">
-            </div>
+    <!-- ==========================================
+       RODAPÉ 2: CRÉDITOS LEGAIS E DIREITOS AUTORAIS
+       ========================================== */ -->
+    <footer class="footer-legal">
+        <p>&copy; 2026 BoB FiT. Todos os direitos reservado, ouve uso de IA para fins de organização.</p>
+        <div class="legal-links">
+            <a href="#">Termos de Serviço</a> | 
+            <a href="#">Política de Privacidade</a>
+        </div>
+    </footer>
 
-            <!-- Campo de CPF -->
-            <div class="input-group">
-                <label for="user-cpf">CPF</label>
-                <input type="text" id="user-cpf" required maxlength="14" placeholder="000.000.000-00" oninput="applyCpfMask(this)">
-            </div>
-
-            <!-- Campo de Palavra-passe -->
-            <div class="input-group">
-                <label for="password">Palavra-passe</label>
-                <input type="password" id="password" required placeholder="••••••••">
-            </div>
-
-            <!-- Botão de submissão -->
-            <button type="submit" class="btn-submit" id="btn-submit-text">Cadastrar e Entrar como Aluno</button>
-        </form>
-
-        <!-- Mensagem de feedback de sucesso -->
-        <div id="feedback-message" class="feedback hidden"></div>
-    </div>
-
+    <!-- Script do Javascript -->
     <script src="script.js"></script>
 </body>
 </html>
