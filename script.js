@@ -1,7 +1,7 @@
 // ==========================================
 // BASE DE DADOS DO CALENDÁRIO DE HORÁRIOS
 // ==========================================
-const scheduleData = {
+const defaultSchedule = {
     segunda: [
         { time: "07:30 - 08:30", activity: "Cross Training", coach: "Prof. Carlos" },
         { time: "09:00 - 10:00", activity: "Pilates Avançado", coach: "Prof.ª Mariana" },
@@ -34,8 +34,13 @@ const scheduleData = {
     ]
 };
 
-// Variável para controlar qual dia está ativo na visualização atual
+// Carrega os dados salvos permanentemente ou usa a grade padrão inicial
+let scheduleData = JSON.parse(localStorage.getItem('bobfit_schedule')) || defaultSchedule;
 let currentActiveDay = 'segunda';
+
+function saveScheduleToStorage() {
+    localStorage.setItem('bobfit_schedule', JSON.stringify(scheduleData));
+}
 
 function renderSchedule(day) {
     currentActiveDay = day;
@@ -44,6 +49,7 @@ function renderSchedule(day) {
 
     container.innerHTML = '';
     const activities = scheduleData[day] || [];
+    const isFuncionario = localStorage.getItem('userRole') === 'funcionario' && localStorage.getItem('isLoggedIn') === 'true';
 
     if (activities.length === 0) {
         container.innerHTML = '<p style="text-align:center; color:#9ca3af;">Sem aulas agendadas para este dia.</p>';
@@ -51,8 +57,7 @@ function renderSchedule(day) {
     }
 
     activities.forEach((item, index) => {
-        const isFuncionario = localStorage.getItem('userRole') === 'funcionario';
-        // Se for funcionário, mostra um botão para deletar a atividade
+        // Se for funcionário, mostra o botão para remover a atividade do calendário
         const deleteBtnHtml = isFuncionario 
             ? `<button class="btn-delete" onclick="handleDeleteSchedule('${day}', ${index})">Excluir</button>` 
             : '';
@@ -89,8 +94,8 @@ function handleAddSchedule(event) {
     }
 
     scheduleData[day].push({ time, activity, coach });
+    saveScheduleToStorage(); // Salva permanentemente no navegador
     
-    // Reseta o formulário e atualiza a lista na tela se for o dia atual
     document.getElementById('add-schedule-form').reset();
     alert("Aula adicionada com sucesso!");
     
@@ -103,6 +108,7 @@ function handleAddSchedule(event) {
 function handleDeleteSchedule(day, index) {
     if (confirm("Tem certeza que deseja remover esta aula?")) {
         scheduleData[day].splice(index, 1);
+        saveScheduleToStorage(); // Salva permanentemente no navegador
         renderSchedule(day);
     }
 }
@@ -119,7 +125,7 @@ function applyCpfMask(input) {
 }
 
 // ==========================================
-// LÓGICA DE LOGIN, CADASTRO E ENTRADA
+// LÓGICA DE LOGIN E CONTROLE DE PERFIL
 // ==========================================
 let currentRole = 'aluno';
 
@@ -134,7 +140,6 @@ function selectRole(role) {
 
     if (!btnAluno) return; 
 
-    // Limpa feedbacks antigos
     document.getElementById('feedback-message').classList.add('hidden');
 
     if (role === 'aluno') {
@@ -147,7 +152,7 @@ function selectRole(role) {
         btnFuncionario.classList.add('active');
         btnAluno.classList.remove('active');
         emailLabel.innerText = "E-mail Corporativo";
-        userEmail.placeholder = "colaborador@nexusfitness.com";
+        userEmail.placeholder = "colaborador@bobfit.com";
         btnSubmitText.innerText = "Cadastrar e Entrar como Funcionário";
     }
 }
@@ -158,26 +163,23 @@ function handleAuth(event) {
     const email = document.getElementById('user-email').value;
     const feedbackBlock = document.getElementById('feedback-message');
 
-    // Salva a sessão ativa no navegador
     localStorage.setItem('userEmail', email);
     localStorage.setItem('userRole', currentRole);
     localStorage.setItem('isLoggedIn', 'true');
 
-    // Mensagem de sucesso
     let mensagemSucesso = currentRole === 'aluno' 
         ? `🎉 Cadastrado com sucesso! Entrando como Aluno...`
         : `💼 Acesso concedido! Entrando como Funcionário...`;
 
     feedbackBlock.innerText = mensagemSucesso;
     feedbackBlock.classList.remove('hidden');
-    feedbackBlock.className = "feedback success";
 
     document.getElementById('login-form').reset();
 
-    // Redireciona para a página principal
+    // CORRIGIDO: Redireciona corretamente para a página logada (home.html)
     setTimeout(() => {
-        window.location.href = "index.html";
-    }, 2000);
+        window.location.href = "home.html";
+    }, 1500);
 }
 
 function logout() {
@@ -187,6 +189,9 @@ function logout() {
     window.location.href = "index.html";
 }
 
+// ==========================================
+// BARREIRA DE SEGURANÇA E CONTROLE DE TELA
+// ==========================================
 function checkLoginState() {
     const authArea = document.getElementById('auth-area');
     const adminPanel = document.getElementById('admin-panel');
@@ -194,6 +199,15 @@ function checkLoginState() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const email = localStorage.getItem('userEmail');
     const role = localStorage.getItem('userRole');
+
+    // 🔒 BARREIRA DE SEGURANÇA LOCAL FIXADA
+    const urlCompleta = window.location.href;
+    const naPaginaInterna = urlCompleta.includes('home.html');
+    
+    if (naPaginaInterna && isLoggedIn !== 'true') {
+        window.location.href = "index.html";
+        return;
+    }
 
     // Exibe o painel administrativo se o usuário logado for funcionário
     if (isLoggedIn === 'true' && role === 'funcionario') {
@@ -205,12 +219,13 @@ function checkLoginState() {
     if (!authArea) return;
 
     if (isLoggedIn === 'true' && email) {
-        const badgeColor = role === 'aluno' ? '#6366f1' : '#10b981';
+        // Corrigido para as cores verde neon da identidade BoB Fit
+        const badgeColor = role === 'aluno' ? '#00bc1e' : '#00ff2b';
         const badgeText = role === 'aluno' ? '🎓 Aluno' : '💼 Func.';
 
         authArea.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.05); padding: 5px 15px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);">
-                <span style="font-size: 0.85rem; background: ${badgeColor}; color: white; padding: 2px 8px; border-radius: 12px; font-weight: bold;">${badgeText}</span>
+            <div style="display: flex; align-items: center; gap: 15px; background: #121212; padding: 5px 15px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05);">
+                <span style="font-size: 0.85rem; background: ${badgeColor}; color: #000; padding: 2px 8px; border-radius: 12px; font-weight: bold;">${badgeText}</span>
                 <span style="font-size: 0.9rem; color: #e5e7eb; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${email}</span>
                 <button onclick="logout()" style="background: transparent; border: none; color: #ef4444; font-weight: bold; cursor: pointer; font-size: 0.9rem; margin-left: 5px;">Sair</button>
             </div>
@@ -221,25 +236,16 @@ function checkLoginState() {
 // ==========================================
 // GERENCIAMENTO DE AVISOS DINÂMICOS
 // ==========================================
-const defaultAnnouncement = "⚠️ Nota: As aulas de grupo seguem a marcação específica do calendário abaixo.";
+const defaultAnnouncement = "⚠️ Nota: As aulas de grupo seguem a marcação específica del calendário abaixo.";
 
 function renderAnnouncement() {
     const announcementBlock = document.getElementById('gym-announcement');
     if (!announcementBlock) return;
 
-    // Busca o aviso personalizado ou usa o texto padrão inicial
-    const activeAnnouncement = localStorage.getItem('nexus_announcement') || defaultAnnouncement;
+    const activeAnnouncement = localStorage.getItem('bobfit_announcement') || defaultAnnouncement;
     announcementBlock.innerText = activeAnnouncement;
 }
 
-function handleUpdateAnnouncement(newText) {
-    if (!newText || newText.trim() === "") {
-        alert("Por favor, digite um aviso válido!");
-        return;
-    }
-    localStorage.setItem('nexus_announcement', newText.trim());
-    renderAnnouncement();
-}
 
 // ==========================================
 // EXECUÇÃO INICIAL
