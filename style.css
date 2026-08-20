@@ -602,3 +602,68 @@ input:focus, select:focus {
         text-align: center;
     }
 }
+/* ==========================================
+   CORREÇÕES DE AJUSTE E FIXAÇÃO PARA CELULAR
+   ========================================== */
+
+/* 1. Trava e fixa o corpo do site para eliminar qualquer folga ou balanço lateral */
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    position: relative;
+}
+
+/* 2. Corrige o desalinhamento e quebra do menu "A Academia" em telas pequenas */
+@media (max-width: 768px) {
+    /* Transforma o menu em uma linha rolável sutil ou compacta para não quebrar texto */
+    .nav-links {
+        gap: 15px !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        max-width: 60%;
+        justify-content: flex-end;
+    }
+
+    .nav-links li {
+        white-space: nowrap !important; /* Impede estritamente que "A Academia" quebre em duas linhas */
+    }
+
+    .nav-links a {
+        font-size: 0.9rem !important; /* Diminui levemente a fonte para caber melhor em ecrãs pequenos */
+    }
+
+    /* Ajusta o cabeçalho para distribuir melhor o espaço reduzido do telemóvel */
+    header {
+        padding: 15px 4% !important;
+        gap: 10px;
+    }
+
+    .logo {
+        font-size: 20px !important;
+    }
+
+    .auth-buttons {
+        gap: 6px !important;
+    }
+
+    .btn-portal {
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+    }
+
+    /* Ajusta as grades de conteúdo para que nenhum elemento force a barra lateral */
+    .gym-gallery-grid, .info-grid, .plans-grid, .shop-grid {
+        grid-template-columns: 1fr !important; /* Força tudo a ficar em uma coluna perfeita no celular */
+        width: 100% !important;
+    }
+
+    .container {
+        padding: 0 15px !important;
+        margin: 20px auto !important;
+    }
+    
+    .intro-section {
+        padding: 25px 15px !important;
+    }
+}
